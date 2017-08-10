@@ -13,7 +13,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body style="padding-bottom: 100px;">
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -29,14 +29,14 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        LaravelPH Forum
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li><a href="/threads">All Threads</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
