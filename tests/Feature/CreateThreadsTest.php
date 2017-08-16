@@ -26,12 +26,23 @@ class CreateThreadsTest extends TestCase
     {
     	$this->signIn();
 
-    	$thread = create('App\Thread');
+    	$thread = make('App\Thread');
 
-    	$this->post('/threads', $thread->toArray());
-
-    	$this->get($thread->path())
+    	$response = $this->post('/threads', $thread->toArray());
+        
+    	$this->get($response->headers->get('Location'))
     		->assertSee($thread->title)
     		->assertSee($thread->body);
+    }
+
+    /** @test */
+    public function a_thread_requires_a_title()
+    {
+        $this->signIn();
+        $thread = make('App\Thread', ['title' => null]);
+        dd($thread);
+
+        $this->post('/threads', $thread->toArray())
+            ->assertSessionHasErrors('title');
     }
 }
