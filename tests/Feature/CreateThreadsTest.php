@@ -57,7 +57,7 @@ class CreateThreadsTest extends TestCase
         $this->publishThread(['channel_id' => null])
             ->assertSessionHasErrors('channel_id');
 
-        $this->publishThread(['channel_id' => 2])
+        $this->publishThread(['channel_id' => 999])
             ->assertSessionHasErrors('channel_id');
     }
 
