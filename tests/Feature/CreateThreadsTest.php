@@ -21,19 +21,19 @@ class CreateThreadsTest extends TestCase
             ->assertRedirect('/login');
     }
 
-    // /** @test */
-    // public function an_authenticated_user_can_create_new_forum_threads()
-    // {
-    // 	$this->signIn();
+    /** @test */
+    public function an_authenticated_user_can_create_new_forum_threads()
+    {
+    	$this->signIn();
 
-    // 	$thread = make('App\Thread');
+    	$thread = make('App\Thread');
 
-    // 	$response = $this->post('/threads', $thread->toArray());
+    	$response = $this->post('/threads', $thread->toArray());
         
-    // 	$this->get($response->headers->get('Location'))
-    // 		->assertSee($thread->title)
-    // 		->assertSee($thread->body);
-    // }
+    	$this->get($response->headers->get('Location'))
+    		->assertSee($thread->title)
+    		->assertSee($thread->body);
+    }
 
     /** @test */
     public function a_thread_requires_a_title()
@@ -62,30 +62,30 @@ class CreateThreadsTest extends TestCase
     }
 
     /** @test */
-    public function guests_cannot_delete_threads()
+    public function unathorized_errors_may_not_delete_threads()
     {
         $this->withExceptionHandling();
         $thread = create('App\Thread');
-        $response = $this->delete($thread->path());
-        $response->assertRedirect('/login');
+        $this->delete($thread->path())->assertRedirect('/login');
+
+        $this->signIn();
+        $this->delete($thread->path())->assertStatus(403);
     }
 
     /** @test */
-    public function a_thread_can_be_deleted()
+    public function unauthorized_users_can_delete_threads()
     {
         $this->signIn();
-        $thread = create('App\Thread');
+
+        $thread = create('App\Thread', ['user_id' => auth()->id()]);
         $replies = create('App\Reply', ['thread_id' => $thread->id]);
+
         $response = $this->json('DELETE', $thread->path());
+
         $response->assertStatus(204);
+
         $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
         $this->assertDatabaseMissing('replies', ['id' => $replies->id]);
-    }
-
-    /** @test */
-    public function threads_may_only_be_deleted_by_those_who_have_permission()
-    {
-        
     }
 
     public function publishThread($overrides = [])
