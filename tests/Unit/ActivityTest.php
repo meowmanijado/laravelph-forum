@@ -13,17 +13,14 @@ class ActivityTest extends TestCase
     public function it_records_activity_when_a_thread_is_created()
     {
         $this->signIn();
-
         $thread = create('App\Thread');
         $this->assertDatabaseHas('activities', [
-        	'type' => 'created_thread',
-        	'user_id' => auth()->id(),
-        	'subject_id' => $thread->id,
-        	'subject_type' => 'App\Thread'
+            'type' => 'event_thread',
+            'user_id' => auth()->id(),
+            'subject_id' => $thread->id,
+            'subject_type' => 'App\Thread'
         ]);
-
         $activity = \App\Activity::first();
-
         $this->assertEquals($activity->subject->id, $thread->id);
     }
 
