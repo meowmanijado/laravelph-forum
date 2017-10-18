@@ -32,12 +32,12 @@
 			create() {
 				axios.post(this.endpoint);
 				this.active = true;
-				this.favoritesCount++;
+				this.count++;
 			},
 			destroy() {
 				axios.delete(this.endpoint);
 				this.active = false;
-				this.favoritesCount--;
+				this.count--;
 			}
 		}
 	}
