@@ -32,7 +32,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 let token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = window.App.csrfToken;
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
@@ -54,6 +54,12 @@ if (token) {
 // 
 window.Vue = require('vue');
 window.events = new Vue();
+
+Vue.prototype.authorize = function (handler) {
+	// Additional admin privilages 
+	let user = window.App.user;
+	return user ? handler : false;
+};
 
 window.flash = function (message) {
 	window.events.$emit('flash', message);

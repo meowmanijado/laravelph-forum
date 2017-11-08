@@ -20,6 +20,15 @@
         .mr-1 { margin-right: 1em; }
         [v-cloak] {display: none;}
     </style>
+
+    <!-- Scripts -->
+    <script type="text/javascript">
+        window.App = {!! json_encode([
+            'csrfToken' => csrf_token(),
+            'user' => Auth::user(),
+            'signedIn' => Auth::check()
+        ]) !!};
+    </script>
 </head>
 <body>
     <div id="app">
