@@ -42648,6 +42648,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
+		add: function add(reply) {
+			this.items.push(reply);
+		},
 		removed: function removed(index) {
 			this.items.splice(index, 1);
 			this.$emit('removed');
@@ -43111,7 +43114,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	data: function data() {
 		return {
 			body: '',
-			endpoint: ''
+			endpoint: '/threads/cumque/63/replies'
 		};
 	},
 
@@ -43218,7 +43221,7 @@ var render = function() {
         )
       }),
       _vm._v(" "),
-      _c("new-reply")
+      _c("new-reply", { on: { created: _vm.add } })
     ],
     2
   )

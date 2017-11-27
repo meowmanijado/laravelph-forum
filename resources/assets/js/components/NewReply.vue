@@ -24,7 +24,7 @@
 		data() {
 			return {
 				body: '',
-				endpoint: ''
+				endpoint: '/threads/cumque/63/replies'
 			};
 		},
 		methods: {
