@@ -42643,13 +42643,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	components: { Reply: __WEBPACK_IMPORTED_MODULE_0__Reply_vue___default.a, NewReply: __WEBPACK_IMPORTED_MODULE_1__NewReply_vue___default.a },
 	data: function data() {
 		return {
-			items: this.data
+			items: this.data,
+			endpoint: location.pathname + '/replies'
 		};
 	},
 
 	methods: {
 		add: function add(reply) {
 			this.items.push(reply);
+
+			$this.$emit('added');
 		},
 		removed: function removed(index) {
 			this.items.splice(index, 1);
@@ -43108,14 +43111,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['endpoint'],
+
 	data: function data() {
 		return {
-			body: '',
-			endpoint: '/threads/cumque/63/replies'
+			body: ''
 		};
+	},
+
+
+	computed: {
+		signedIn: function signedIn() {
+			return window.App.signedIn;
+		}
 	},
 
 	methods: {
@@ -43142,45 +43152,53 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "form-group" }, [
-      _c("textarea", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.body,
-            expression: "body"
-          }
-        ],
-        staticClass: "form-control",
-        attrs: {
-          name: "body",
-          id: "body",
-          placeholder: "Have something to say?",
-          rows: "5",
-          required: ""
-        },
-        domProps: { value: _vm.body },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.body = $event.target.value
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass: "btn btn-default",
-        attrs: { type: "submit" },
-        on: { click: _vm.addReply }
-      },
-      [_vm._v("Post")]
-    )
+    _vm.signedIn
+      ? _c("div", [
+          _c("div", { staticClass: "form-group" }, [
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.body,
+                  expression: "body"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                name: "body",
+                id: "body",
+                placeholder: "Have something to say?",
+                rows: "5",
+                required: ""
+              },
+              domProps: { value: _vm.body },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.body = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default",
+              attrs: { type: "submit" },
+              on: { click: _vm.addReply }
+            },
+            [_vm._v("Post")]
+          )
+        ])
+      : _c("p", { staticClass: "text-center" }, [
+          _vm._v("\n\t\t\tPlease "),
+          _c("a", { attrs: { href: "/login" } }, [_vm._v("sign")]),
+          _vm._v(" in to participate \n\t\t\tin this discusiion.")
+        ])
   ])
 }
 var staticRenderFns = []
@@ -43221,7 +43239,10 @@ var render = function() {
         )
       }),
       _vm._v(" "),
-      _c("new-reply", { on: { created: _vm.add } })
+      _c("new-reply", {
+        attrs: { endpoint: _vm.endpoint },
+        on: { created: _vm.add }
+      })
     ],
     2
   )
