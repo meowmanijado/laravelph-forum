@@ -5,7 +5,7 @@
 			        <h5 class="flex">
 				        <a :href="'/profiles/'+data.owner.name"
 				        	v-text="data.owner.name">
-				        </a> said <spanv v-text="ago"></span>
+				        </a> said <span v-text="ago"></span>
 			        </h5>
 				        <div v-if="signedIn">
 				        	<favorite :reply="data"></favorite>

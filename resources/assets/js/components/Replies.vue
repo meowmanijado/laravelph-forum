@@ -24,7 +24,7 @@
 			add(reply) {
 				this.items.push(reply);
 
-				$this.$emit('added');
+				this.$emit('added');
 			},
 
 			removed(index) {
