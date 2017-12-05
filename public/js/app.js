@@ -58701,7 +58701,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	computed: {
 		ago: function ago() {
-			return __WEBPACK_IMPORTED_MODULE_1_moment___default()(this.data.created_at).fromNow();
+			return __WEBPACK_IMPORTED_MODULE_1_moment___default()(this.data.created_at).fromNow() + ' ...';
 		},
 		signedIn: function signedIn() {
 			return window.App.signedIn;
