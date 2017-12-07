@@ -35,9 +35,12 @@
 <script>
 	import Favorite from './Favorite.vue';
 	import moment from 'moment';
+
 	export default {
 		props: ['data'],
+
 		components: { Favorite },
+
 		data() {
 			return {
 				editing: false,
@@ -45,18 +48,22 @@
 				body: this.data.body
 			}
 		},
+
 		computed: {
 			ago() {
 				return moment(this.data.created_at).fromNow() + ' ...';
 			},
+
 			signedIn() {
 				return window.App.signedIn;
 			},
+			
 			canUpdate() {
 				return this.authorize(user => this.data.user_id == user.id);
 				//return this.data.user_id == window.App.user.id;
 			}
 		},
+
 		methods: {
 			update() {
 				axios.patch('/replies/' + this.data.id, {
