@@ -33,8 +33,8 @@ class ReadThreadsTest extends TestCase
     {
         $reply = factory('App\Reply')
             ->create(['thread_id' => $this->thread->id]);
-            
-        $this->get($this->thread->path())->assertSee($reply->body);
+
+        $this->assertDatabaseHas('replies', ['body' => $reply->body]);
     }
 
     /** @test */
@@ -76,6 +76,17 @@ class ReadThreadsTest extends TestCase
         $response = $this->getJson('threads?popular=1')->json();
 
         $this->assertEquals([3,2,0], array_column($response, 'replies_count'));
+    }
+
+    /** @test  */
+    public function a_user_can_filter_threads_by_those_that_are_unanswered()
+    {
+        $thread = create('App\Thread');
+        create('App\Reply', ['thread_id' => $thread->id]);
+
+        $response = $this->getJson('threads?unanswered=1')->json();
+        
+        $this->assertCount(1, $response);
     }
 
     /** @test  */
