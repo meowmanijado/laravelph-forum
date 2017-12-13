@@ -38,7 +38,7 @@
 
 			url(page) {
 				if (! page) {
-					let query = location.search.match(/page=(\d+)/)[1];
+					let query = location.search.match(/page=(\d+)/);
 					page = query ? query[1] : 1;
 				}
 				return `${location.pathname}/replies?page=${page}`;
