@@ -9,7 +9,7 @@ class SubscribeToThreadsTests extends TestCase
 {
     use DatabaseMigrations;
 
-    /** test  */
+    /** @test  */
     public function a_user_can_subscribe_to_threads()
     {
         $this->signIn();
@@ -18,12 +18,8 @@ class SubscribeToThreadsTests extends TestCase
 
         $this->post($thread->path() . '/subscriptions');
 
-        $thread->addReply([
-            'user_id' => auth()->id(),
-            'body' => 'Some reply here'
-        ]);
+        $this->assertCount(1, $thread->fresh()->subscriptions);
 
-        //$this->assertCount(1, $thread->subscriptions);
     }
 
     /** @test  */
