@@ -53,7 +53,7 @@ class Thread extends Model
             })
             ->each->notify($reply);
             // ->each(function ($sub) use ($reply) {
-            //     $sub->notify($reply);
+            //     $sub->notify($reply); // Cool higher order collection
             // });
 
         // foreach ($this->subscriptions as $subscription) {
