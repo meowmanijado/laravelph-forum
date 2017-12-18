@@ -59,11 +59,9 @@ class NotificationsTest extends TestCase
         create(DatabaseNotification::class);
 
         tap(auth()->user(), function ($user) {
-            $this->assertCount(1, $user->fresh()->unreadNotifications); 
-            
+            $this->assertCount(1, $user->unreadNotifications);
             $this->delete("/profiles/{$user->name}/notifications/" . $user->unreadNotifications->first()->id);
-    
-            $this->assertCount(0, $user->fresh()->unreadNotifications); 
+            $this->assertCount(0, $user->fresh()->unreadNotifications);
         });
     }
 }
