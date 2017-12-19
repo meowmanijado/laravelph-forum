@@ -2,12 +2,10 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
 class ThreadWasUpdated extends Notification
 {
-    use Queueable;
 
     protected $thread;
     protected $reply;
@@ -27,7 +25,7 @@ class ThreadWasUpdated extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via()
     {
         return ['database'];
     }
@@ -38,7 +36,7 @@ class ThreadWasUpdated extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray()
     {
         return [
             'message' => $this->reply->owner->name . ' replied to ' . $this->thread->title,
