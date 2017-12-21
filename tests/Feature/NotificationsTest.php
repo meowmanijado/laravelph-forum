@@ -32,7 +32,7 @@ class NotificationsTest extends TestCase
             'body' => 'Some reply here'
         ]);
 
-        $this->assertCount(1, auth()->user()->fresh()->notifications);
+        $this->assertCount(0, auth()->user()->fresh()->notifications);
 
         $thread->addReply([
             'user_id' => create('App\User')->id,
