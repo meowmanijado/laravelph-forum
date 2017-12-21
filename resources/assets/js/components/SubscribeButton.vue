@@ -4,9 +4,7 @@
 
 <script>
     export default {
-        data() {
-            return { active: true }
-        },
+        props: ['active'],
 
         computed: {
             classes() {
