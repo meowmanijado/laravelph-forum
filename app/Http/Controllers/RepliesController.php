@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Reply;
 use App\Thread;
 use Illuminate\Http\Request;
-use App\Spam;
+use App\Inspections\Spam;
 
 class RepliesController extends Controller
 {
