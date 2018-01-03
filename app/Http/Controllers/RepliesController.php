@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Mockery\Exception;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\CreatePostRequest;
+use App\Notifications\YouWereMentioned;
+use App\User;
 
 class RepliesController extends Controller
 {
