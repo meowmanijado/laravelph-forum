@@ -10,6 +10,9 @@ use Carbon\Carbon;
 
 class ThreadsController extends Controller
 {
+    /**
+     * Create a new ThreadController instance.
+     */
     public function __construct()
     {
         $this->middleware('auth')->except(['index','show']);
