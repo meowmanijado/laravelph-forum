@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    <link href="/css/vendor/jquery.atwho.css" rel="stylesheet">
+        <link href="/css/vendor/jquery.atwho.css" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -12,6 +12,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="level">
+                            <img src="{{ $thread->creator->avatar }}" alt="{{ $thread->creator->name }}" width="25" height="25" class="mr-1">
                             <span class="flex">
                                 <a href="{{ route('profile', $thread->creator->name) }}">{{ $thread->creator->name }}</a> posted:
                                 {{ $thread->title }}
