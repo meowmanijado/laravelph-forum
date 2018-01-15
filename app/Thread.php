@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Notifications\ThreadWasUpdated;
 use App\Events\ThreadHasNewReply;
 use App\Events\ThreadReceivedNewReply;
+use Illuminate\Support\Facades\Redis;
 
 class Thread extends Model
 {
-    use RecordsActivity;
+    use RecordsActivity, RecordsVisit;
 
     /**
      * Don't auto-apply mass assignment protection.
@@ -169,4 +170,6 @@ class Thread extends Model
 
         return $this->updated_at > cache($key);
     }
+
+    
 }
