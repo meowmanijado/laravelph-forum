@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Redis;
 
 class Thread extends Model
 {
-    use RecordsActivity, RecordsVisit;
+    use RecordsActivity;
 
     /**
      * Don't auto-apply mass assignment protection.
@@ -171,5 +171,8 @@ class Thread extends Model
         return $this->updated_at > cache($key);
     }
 
-    
+    public function visits()
+    {
+        return new Visits($this);
+    }
 }
