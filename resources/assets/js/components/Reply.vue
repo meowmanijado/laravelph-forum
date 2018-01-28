@@ -1,5 +1,5 @@
 <template>
-		<div :id="'reply-'+id" class="panel panel-default">
+		<div :id="'reply-'+id" class="panel" :class="isBest ? 'panel-success' : 'panel-default'">
 		    <div class="panel-heading">
 		    	<div class="level">
 			        <h5 class="flex">
@@ -28,9 +28,12 @@
 
 		    </div>
 
-		    <div class="panel-footer level" v-if="canUpdate">
-		    	<button class="btn btn-xs mr-1" @click="editing = true">Edit</button>
-		    	<button class="btn btn-xs btn-danger mr-1" @click="destroy">Delete</button>
+		    <div class="panel-footer level">
+				<div v-if="canUpdate">
+					<button class="btn btn-xs mr-1" @click="editing = true">Edit</button>
+		    		<button class="btn btn-xs btn-danger mr-1" @click="destroy">Delete</button>
+				</div>
+				<button class="btn btn-xs btn-default ml-a" @click="markBestReply" v-show="! isBest">Best Reply?</button>
 		    </div>
 		</div>
 </template>
@@ -47,7 +50,8 @@
 			return {
 				editing: false,
 				id: this.data.id,
-				body: this.data.body
+				body: this.data.body,
+				isBest: false
 			}
 		},
 
@@ -85,6 +89,9 @@
 				// $(this.$el).fadeOut(300, () => {
 				// 	flash('Your reply has been deleted.');
 				// });
+			},
+			markBestReply() {
+				this.isBest = true;
 			}
 		}
 	}
