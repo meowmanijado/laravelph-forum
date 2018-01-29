@@ -1,3 +1,5 @@
+import { Vue } from 'vue/types/vue';
+
 
 window._ = require('lodash');
 
@@ -53,13 +55,20 @@ if (token) {
 // });
 // 
 window.Vue = require('vue');
-window.events = new Vue();
 
-Vue.prototype.authorize = function (handler) {
-	// Additional admin privilages 
-	let user = window.App.user;
-	return user ? handler : false;
+let authorixations = require('./authorizations');
+
+Vue.prototype.authorize = function (...params) {
+    if (! window.App.signedIn) return false;
+    
+    if (typeof params[0] === 'string') {
+        return authorixations[params[0]](params[1]);
+    }
+
+    return params[0](window.App.user);
 };
+
+Vue.prototype.signedIn = window.App.signedIn;
 
 window.flash = function (message, level = 'success') {
 	window.events.$emit('flash', {message, level});
