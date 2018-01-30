@@ -1,6 +1,3 @@
-import { Vue } from 'vue/types/vue';
-
-
 window._ = require('lodash');
 
 /**
@@ -54,15 +51,17 @@ if (token) {
 //     key: 'your-pusher-key'
 // });
 // 
+
+
 window.Vue = require('vue');
 
-let authorixations = require('./authorizations');
+let authorizations = require('./authorizations');
 
 Vue.prototype.authorize = function (...params) {
     if (! window.App.signedIn) return false;
-    
+
     if (typeof params[0] === 'string') {
-        return authorixations[params[0]](params[1]);
+        return authorizations[params[0]](params[1]);
     }
 
     return params[0](window.App.user);
@@ -70,6 +69,9 @@ Vue.prototype.authorize = function (...params) {
 
 Vue.prototype.signedIn = window.App.signedIn;
 
+
+window.events = new Vue();
+
 window.flash = function (message, level = 'success') {
-	window.events.$emit('flash', {message, level});
+    window.events.$emit('flash', { message, level });
 };
