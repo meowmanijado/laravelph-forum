@@ -28,6 +28,9 @@ class Thread extends Model
      */
     protected $with = ['creator', 'channel'];
 
+    protected $casts = [
+        'locked' => 'boolean'
+    ];
     /**
      * The accessors to append to the model's array form.
      *
@@ -104,11 +107,6 @@ class Thread extends Model
         event(new ThreadReceivedNewReply($reply));
 
         return $reply;
-    }
-
-    public function lock()
-    {
-        $this->update(['locked' => true]);
     }
     
     /**
