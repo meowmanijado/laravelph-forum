@@ -87,7 +87,7 @@ class ReadThreadsTest extends TestCase
         $response = $this->getJson('threads?unanswered=1')->json();
         
         $this->assertCount(1, $response['data']);
-    }
+    }   
 
     /** @test  */
     public function a_user_can_requests_allreplies_for_a_given_thread()
